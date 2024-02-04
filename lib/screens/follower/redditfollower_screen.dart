@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+final GlobalKey<_RedditFollowerScreen> rdFoGlobalKey = GlobalKey<_RedditFollowerScreen>();
+
 class RedditFollowerScreen extends StatefulWidget{
   const RedditFollowerScreen({super.key});
 
@@ -14,13 +16,14 @@ const String mainUrl = "https://www.reddit.com/r/LinusTechTips/";
 
 class _RedditFollowerScreen extends State<RedditFollowerScreen>{
 
-  final WebViewController wvCntrl = WebViewController()
-  ..setJavaScriptMode(JavaScriptMode.unrestricted)
-  ..setBackgroundColor(Colors.red)
-  ..loadRequest(Uri.parse(mainUrl));
+  WebViewController wvCntrl = WebViewController();
 
   @override
   Widget build(BuildContext context){
+    wvCntrl = WebViewController()
+    ..setJavaScriptMode(JavaScriptMode.unrestricted)
+    ..setBackgroundColor(Colors.red)
+    ..loadRequest(Uri.parse(mainUrl));
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -36,5 +39,32 @@ class _RedditFollowerScreen extends State<RedditFollowerScreen>{
           )
       ),
     );  
+  }
+
+  void goBack () async {
+    debugPrint("backbuttoncalled");
+    if (await wvCntrl.canGoBack()) {
+      await wvCntrl.goBack();
+    } 
+    else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text("No back history item")),
+      );
+      return;
+    }
+  }
+
+  void goForward () async {
+    if (await wvCntrl.canGoForward()) {
+      await wvCntrl.goForward();
+    }
+    else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text("No forward history item")),
+      );
+      return;
+    }
   }
 }

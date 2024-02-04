@@ -28,4 +28,31 @@ class _TwitterCreatorScreen extends State<TwitterCreatorScreen>{
       )
     );
   }
+
+  void goBack () async {
+    debugPrint("backbuttoncalled");
+    if (await wvCntrl.canGoBack()) {
+      await wvCntrl.goBack();
+    } 
+    else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text("No back history item")),
+      );
+      return;
+    }
+  }
+
+  void goForward () async {
+    if (await wvCntrl.canGoForward()) {
+      await wvCntrl.goForward();
+    }
+    else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text("No forward history item")),
+      );
+      return;
+    }
+  }
 }

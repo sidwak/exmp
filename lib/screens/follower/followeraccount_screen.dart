@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+final GlobalKey<_FollowerAccountScreen> foAcGlobalKey = GlobalKey<_FollowerAccountScreen>();
+
 class FollowerAccountScreen extends StatefulWidget{
   const FollowerAccountScreen({super.key});
 
@@ -42,6 +44,10 @@ class _FollowerAccountScreen extends State<FollowerAccountScreen>{
 
   void onSearchChanged(String searchString){
     matchingNames = filterNames(firstNames, searchString);
+  }
+
+  void pullSearchData(){
+    
   }
 
   @override

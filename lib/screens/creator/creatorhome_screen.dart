@@ -82,11 +82,14 @@ class _CreatorHomeScreen extends State<CreatorHomeScreen>{
           if (details.primaryVelocity! > sensitivity) {
               debugPrint("swiperight");
               if (globalKey.currentState == null){
-                debugPrint("currentstateisnull");
+                //debugPrint("currentstateisnull");
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("currentstateisnull")));
               }
               else {
-                globalKey.currentState?.goBack();
+                if (currentPageIndex == 0){globalKey.currentState?.goBack();}
+                else if(currentPageIndex == 1){igGlobalKey.currentState?.goBack();}
+                else if (currentPageIndex == 2){twGlobalKey.currentState?.goBack();}
+                else if (currentPageIndex == 3){rdGlobalKey.currentState?.goBack();}
               }
           } else if(details.primaryVelocity! < -sensitivity){
               debugPrint("swipeleft");
@@ -94,7 +97,10 @@ class _CreatorHomeScreen extends State<CreatorHomeScreen>{
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("currentstateisnull")));
               }
               else {
-                globalKey.currentState?.goForward();
+                if (currentPageIndex == 0){globalKey.currentState?.goForward();}
+                else if(currentPageIndex == 1){igGlobalKey.currentState?.goForward();}
+                else if (currentPageIndex == 2){twGlobalKey.currentState?.goForward();}
+                else if (currentPageIndex == 3){rdGlobalKey.currentState?.goForward();}
               }
           }
         },

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +35,21 @@ class DataMain{
     });
   }
 
+  //  BELOW VARS BELONGS TO BELOW FUNCTION  
+  List<Map<String, dynamic>> searchData = [];
+  void getSearchData() async{
+    CollectionReference ref = instance.collection("creators");
+    searchData = [];
+    await ref.get().then(
+      (snapshot) {
+        for (var docSnapshot in snapshot.docs){
+          final data = docSnapshot.data() as Map<String, dynamic>;
+          searchData.add(data);
+        }
+      } 
+    );
+  }
+
   Future<bool> getCreatorLinks() async {
     final nameEmail = user.email?.split('@');
     DocumentReference ref = instance.collection("creators").doc(nameEmail?[0]);
@@ -51,6 +68,7 @@ class DataMain{
     return exists;
   }
 
+  //  BELOW VARS BELONGS TO BELOW FUNCTION  
   Map<String, dynamic> ret = {};
   void getCreatorData () async {
     final nameEmail = user.email?.split('@');
