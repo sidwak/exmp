@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +56,8 @@ class DataMain{
       if (value.exists){
         debugPrint("ddb document exits"),
         exists = true,
-        debugPrint("ddb $exists")
+        debugPrint("ddb $exists"),
+        //getCreatorData()
       }
       else {
         debugPrint("ddb document does not exits"),
@@ -81,5 +80,6 @@ class DataMain{
       },
       onError: (e) => debugPrint("ddb Error getting document: $e"),
     );
+    debugPrint("ddb "+ret.toString());
   }
 }

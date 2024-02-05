@@ -37,10 +37,11 @@ class _CreatorHomeScreen extends State<CreatorHomeScreen>{
       debugPrint("ddb geeting links");
       DataMain().getCreatorData();
       Map<String, dynamic> getData = DataMain().ret;
-      youtubeMainUrl = "https://www.youtube.com/user/linustechtips";
-      instamgramMainUrl = "https://www.instagram.com/linustech/";
-      twitterMainUrl = "https://twitter.com/LinusTech";
-      redditMainUrl = "https://www.reddit.com/r/LinusTechTips/";
+      youtubeMainUrl = getData["yt_link"];
+      instamgramMainUrl = getData["insta_link"];
+      twitterMainUrl = getData["twi_link"];
+      redditMainUrl = getData["red_link"];
+      debugPrint("ddb "+getData["yt_link"]);
       globalKey.currentState?.setState(() {});
       igGlobalKey.currentState?.setState(() {});
       twGlobalKey.currentState?.setState(() {});
