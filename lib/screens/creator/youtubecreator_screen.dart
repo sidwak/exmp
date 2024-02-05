@@ -7,6 +7,10 @@ class YoutubeCreatorScreen extends StatefulWidget{
   
   const YoutubeCreatorScreen({super.key});
 
+  void setUrl(String toSet){
+    youtubeMainUrl = toSet;
+  }
+
   @override
   State<YoutubeCreatorScreen> createState() => _YoutubeCreatorScreen();
 }

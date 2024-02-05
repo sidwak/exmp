@@ -24,28 +24,13 @@ class _CreatorHomeScreen extends State<CreatorHomeScreen>{
   RedditCreatorScreen rdCreatorScreen = RedditCreatorScreen(key: rdGlobalKey,);
   CreatorAccountScreen accountScreen = CreatorAccountScreen();
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    debugPrint("ddb initcalled");
-    initLinks();
-  }
 
   Future<void> initLinks() async {
     if (await DataMain().getCreatorLinks()){
       debugPrint("ddb geeting links");
       DataMain().getCreatorData();
       Map<String, dynamic> getData = DataMain().ret;
-      youtubeMainUrl = getData["yt_link"];
-      instamgramMainUrl = getData["insta_link"];
-      twitterMainUrl = getData["twi_link"];
-      redditMainUrl = getData["red_link"];
-      debugPrint("ddb "+getData["yt_link"]);
-      globalKey.currentState?.setState(() {});
-      igGlobalKey.currentState?.setState(() {});
-      twGlobalKey.currentState?.setState(() {});
-      rdGlobalKey.currentState?.setState(() {});
+      
       setState(() {
         //ytCreatorScreen = YoutubeCreatorScreen(key: globalKey);
         
@@ -72,6 +57,10 @@ class _CreatorHomeScreen extends State<CreatorHomeScreen>{
       currentPageIndex = index;
     });
   }
+
+  final Future<Map<String, dynamic>> linksData = Future<Map<String, dynamic>>(
+    () async => await DataMain().getCreatorData(),
+  );
 
   @override
   Widget build(BuildContext context){  
@@ -179,22 +168,65 @@ class _CreatorHomeScreen extends State<CreatorHomeScreen>{
         height: double.infinity,
         color: Colors.greenAccent,
         alignment: Alignment.center,
-        child: LayoutBuilder(
-          builder: (BuildContext ctx, BoxConstraints constraints){
+        child: FutureBuilder<Map<String, dynamic>>(
+          future: linksData,
+          builder: (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
+            Widget children;
+            if (snapshot.hasData){
+              debugPrint("ddb 176"+snapshot.data?["yt_link"]);
+              if (ytCreatorScreen == null){
+                debugPrint("ddb 178 is null");
+              }
+              ytCreatorScreen.setUrl(snapshot.data?["yt_link"]);
+              //globalKey.currentState?.setUrl(snapshot.data?["yt_.link"]);
+              //instamgramMainUrl = snapshot.data?["insta_link"];
+              //twitterMainUrl = snapshot.data?["twi_link"];
+              //redditMainUrl = snapshot.data?["red_link"];
+              
+              globalKey.currentState?.setState(() {});
+              igGlobalKey.currentState?.setState(() {});
+              twGlobalKey.currentState?.setState(() {});
+              rdGlobalKey.currentState?.setState(() {});
+              children = LayoutBuilder(
+                builder: (BuildContext ctx, BoxConstraints constraints){
+                  return Center(
+                    child: IndexedStack(
+                      index: currentPageIndex,
+                      children: <Widget>[
+                        ytCreatorScreen,
+                        igCreatorScreen,
+                        twCreatorScreen,
+                        rdCreatorScreen,
+                        accountScreen
+                      ],
+                    )
+                  );
+                },
+              );
+            }
+            else {
+              children = const Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                        SizedBox(
+                      width: 60,
+                      height: 60,
+                      child: CircularProgressIndicator(),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 16),
+                      child: Text('Loading Links...'),
+                    ),
+                  ],
+                ),
+              );
+            }
             return Center(
-              child: IndexedStack(
-                index: currentPageIndex,
-                children: <Widget>[
-                  ytCreatorScreen,
-                  igCreatorScreen,
-                  twCreatorScreen,
-                  rdCreatorScreen,
-                  accountScreen
-                ],
-              )
+              child: children,
             );
           },
-        ),
+        )
       )
     );
   }

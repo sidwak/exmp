@@ -69,17 +69,20 @@ class DataMain{
 
   //  BELOW VARS BELONGS TO BELOW FUNCTION  
   Map<String, dynamic> ret = {};
-  void getCreatorData () async {
+  Future<Map<String, dynamic>> getCreatorData () async {
+    Map<String, dynamic> retVal = {};
     final nameEmail = user.email?.split('@');
     final docRef = instance.collection("creators").doc(nameEmail?[0]);
     await docRef.get().then(
       (DocumentSnapshot doc) {
         final data = doc.data() as Map<String, dynamic>;
         ret = data;
+        retVal = data;
         debugPrint("ddb " + ret.toString());
       },
       onError: (e) => debugPrint("ddb Error getting document: $e"),
     );
     debugPrint("ddb "+ret.toString());
+    return retVal;
   }
 }
