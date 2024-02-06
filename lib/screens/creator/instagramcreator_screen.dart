@@ -18,6 +18,12 @@ String instamgramMainUrl = "https://www.instagram.com/linustech/";
 
 class _InstagramCreatorScreen extends State<InstagramCreatorScreen>{
 
+  void setLinkAndReload(String newLink){
+    setState(() {
+      instamgramMainUrl = newLink;
+    });
+  }
+
   WebViewController wvCntrl = WebViewController();
 
   @override

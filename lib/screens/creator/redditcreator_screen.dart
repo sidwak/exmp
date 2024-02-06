@@ -17,6 +17,13 @@ class RedditCreatorScreen extends StatefulWidget{
 String redditMainUrl = "https://www.reddit.com/r/LinusTechTips/";
 
 class _RedditCreatorScreen extends State<RedditCreatorScreen>{
+
+  void setLinkAndReload(String newLink){
+      setState(() {
+        redditMainUrl = newLink;
+      });
+    }
+
   WebViewController wvCntrl = WebViewController();
 
   @override

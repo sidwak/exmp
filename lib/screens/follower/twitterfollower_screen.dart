@@ -12,9 +12,15 @@ class TwitterFollowerScreen extends StatefulWidget{
   State<TwitterFollowerScreen> createState() => _TwitterFollowerScreen();
 }
 
-const String mainUrl = "https://twitter.com/LinusTech";
+String mainUrl = "https://twitter.com/LinusTech";
 
 class _TwitterFollowerScreen extends State<TwitterFollowerScreen>{
+
+  void setLinkAndReload(String newLink){
+    setState(() {
+      mainUrl = newLink;
+    });
+  }
 
   WebViewController wvCntrl = WebViewController();
 

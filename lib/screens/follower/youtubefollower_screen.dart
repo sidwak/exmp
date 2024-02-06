@@ -1,3 +1,5 @@
+import 'package:exm_p/widgets/snacky.dart';
+import 'package:exm_p/widgets/staticfields.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -54,12 +56,7 @@ class _YoutubeFollowerScreen extends State<YoutubeFollowerScreen>{
     } 
     else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            content: Text("No back history item"),
-            backgroundColor: Colors.blue.shade300,
-            elevation: 6.0,
-            behavior: SnackBarBehavior.floating,
-        ),
+        SnackyBar(toSet: "No back history item")
       );
       return;
     }
@@ -70,9 +67,8 @@ class _YoutubeFollowerScreen extends State<YoutubeFollowerScreen>{
       await wvCntrl.goForward();
     }
     else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text("No forward history item")),
+      ScaffoldMessenger.of(context).showSnackBar(   
+        SnackyBar(toSet: "No forward history item")
       );
       return;
     }

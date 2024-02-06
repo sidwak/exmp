@@ -12,9 +12,15 @@ class RedditFollowerScreen extends StatefulWidget{
   State<RedditFollowerScreen> createState() => _RedditFollowerScreen();
 }
 
-const String mainUrl = "https://www.reddit.com/r/LinusTechTips/";
+String mainUrl = "https://www.reddit.com/r/LinusTechTips/";
 
 class _RedditFollowerScreen extends State<RedditFollowerScreen>{
+
+  void setLinkAndReload(String newLink){
+    setState(() {
+      mainUrl = newLink;
+    });
+  }
 
   WebViewController wvCntrl = WebViewController();
 

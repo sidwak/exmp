@@ -12,9 +12,15 @@ class InstagramFollowerScreen extends StatefulWidget{
   State<InstagramFollowerScreen> createState() => _InstagramFollowerScreen();
 }
 
-const String mainUrl = "https://www.instagram.com/linustech/";
+String mainUrl = "https://www.instagram.com/linustech/";
 
 class _InstagramFollowerScreen extends State<InstagramFollowerScreen>{
+
+  void setLinkAndReload(String newLink){
+    setState(() {
+      mainUrl = newLink;
+    });
+  }
 
   WebViewController wvCntrl = WebViewController();
 

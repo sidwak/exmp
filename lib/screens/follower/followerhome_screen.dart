@@ -38,15 +38,17 @@ class _FollowerHomeScreen extends State<FollowerHomeScreen>{
       SnackBar(content: Text("Creator selected"))
     );
     debugPrint("ddb pulleddata ${DataMain.pulledSearchData}");
-    String link = "";
     for (Map<String, dynamic> each in DataMain.pulledSearchData){
       if (each["name"] == creatorName){
         debugPrint("ddb create link ${each["yt_link"]}");
-        link = each["yt_link"];
+        ytFoGlobalKey.currentState?.setLinkAndReload(each["yt_link"]);
+        igFoGlobalKey.currentState?.setLinkAndReload(each["insta_link"]);
+        twFoGlobalKey.currentState?.setLinkAndReload(each["twi_link"]);
+        rdFoGlobalKey.currentState?.setLinkAndReload(each["red_link"]);
         break;
       }
     }
-    ytFoGlobalKey.currentState?.setLinkAndReload(link);
+    
   }
 
   List<dynamic> followedData = [];

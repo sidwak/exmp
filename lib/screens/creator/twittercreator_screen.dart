@@ -19,6 +19,12 @@ String twitterMainUrl = "https://twitter.com/LinusTech";
 class _TwitterCreatorScreen extends State<TwitterCreatorScreen>{
   WebViewController wvCntrl = WebViewController();
 
+  void setLinkAndReload(String newLink){
+    setState(() {
+      twitterMainUrl = newLink;
+    });
+  }
+
   @override
   Widget build(BuildContext context){
     wvCntrl = WebViewController()

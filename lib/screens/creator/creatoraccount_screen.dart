@@ -1,4 +1,8 @@
 import 'package:exm_p/datamain.dart';
+import 'package:exm_p/screens/creator/instagramcreator_screen.dart';
+import 'package:exm_p/screens/creator/redditcreator_screen.dart';
+import 'package:exm_p/screens/creator/twittercreator_screen.dart';
+import 'package:exm_p/screens/creator/youtubecreator_screen.dart';
 import 'package:flutter/material.dart';
 
 class CreatorAccountScreen extends StatefulWidget{
@@ -16,6 +20,13 @@ class _CreatorAccountScreen extends State<CreatorAccountScreen>{
   final TextEditingController _igLinkController = TextEditingController();
   final TextEditingController _twLinkController = TextEditingController();
   final TextEditingController _rdLinkController = TextEditingController();
+
+  void updateLinksAndReload(){
+    globalKey.currentState?.setLinkAndReload(_ytLinkController.text);
+    igGlobalKey.currentState?.setLinkAndReload(_igLinkController.text);
+    twGlobalKey.currentState?.setLinkAndReload(_twLinkController.text);
+    rdGlobalKey.currentState?.setLinkAndReload(_rdLinkController.text);
+  }
 
   @override
   Widget build(BuildContext context){
@@ -124,6 +135,7 @@ class _CreatorAccountScreen extends State<CreatorAccountScreen>{
                           //Navigator.pushNamed(context, FollowerHomeScreen.id);
                           DataMain().addCreatorAccount(_nameController.text, _ytLinkController.text,
                           _igLinkController.text, _twLinkController.text, _rdLinkController.text);
+                          updateLinksAndReload();
                         },
                         style: const ButtonStyle(
                           backgroundColor: MaterialStatePropertyAll<Color>(Colors.purpleAccent)

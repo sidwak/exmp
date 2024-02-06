@@ -20,16 +20,31 @@ String youtubeMainUrl = "https://www.youtube.com/user/linustechtips";
 
 class _YoutubeCreatorScreen extends State<YoutubeCreatorScreen>{
 
+  void setLinkAndReload(String newLink){
+    setState(() {
+      youtubeMainUrl = newLink;
+    });
+  }
+
   WebViewController wvCntrl = WebViewController();
 
   BuildContext? mainCtx;
 
   @override
   Widget build(BuildContext context){
+
+    late Uri parseUrl;
+    try {
+      parseUrl = Uri.parse(youtubeMainUrl);
+    }
+    on FormatException catch (e) {
+      parseUrl = Uri.parse("https://www.youtube.com/user/linustechtips");
+    }
+
     wvCntrl = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
     ..setBackgroundColor(Colors.red)
-    ..loadRequest(Uri.parse(youtubeMainUrl));
+    ..loadRequest(parseUrl);
 
     mainCtx = context;
     return Scaffold(
