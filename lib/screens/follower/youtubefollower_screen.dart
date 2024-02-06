@@ -12,9 +12,15 @@ class YoutubeFollowerScreen extends StatefulWidget{
   State<YoutubeFollowerScreen> createState() => _YoutubeFollowerScreen();
 }
 
-const String mainUrl = "https://www.youtube.com/user/linustechtips";
+String mainUrl = "https://www.youtube.com/user/linustechtips";
 
 class _YoutubeFollowerScreen extends State<YoutubeFollowerScreen>{
+
+  void setLinkAndReload(String newLink){
+    setState(() {
+      mainUrl = newLink;
+    });
+  }
 
   WebViewController wvCntrl = WebViewController();
 

@@ -33,10 +33,20 @@ class _FollowerHomeScreen extends State<FollowerHomeScreen>{
     });
   }
 
-  void onCreatorChanged(int index){
+  void onCreatorChanged(String creatorName){
     ScaffoldMessenger.of(mainCtx).showSnackBar(
-      SnackBar(content: Text("Creator ${index} selected"))
+      SnackBar(content: Text("Creator selected"))
     );
+    debugPrint("ddb pulleddata ${DataMain.pulledSearchData}");
+    String link = "";
+    for (Map<String, dynamic> each in DataMain.pulledSearchData){
+      if (each["name"] == creatorName){
+        debugPrint("ddb create link ${each["yt_link"]}");
+        link = each["yt_link"];
+        break;
+      }
+    }
+    ytFoGlobalKey.currentState?.setLinkAndReload(link);
   }
 
   List<dynamic> followedData = [];
@@ -47,6 +57,7 @@ class _FollowerHomeScreen extends State<FollowerHomeScreen>{
   @override
   Widget build(BuildContext context){
     mainCtx = context;
+    DataMain().getSearchData();
     return Scaffold(
       appBar: AppBar(title: Text("Content App"),),
       drawer: FutureBuilder(
@@ -73,9 +84,10 @@ class _FollowerHomeScreen extends State<FollowerHomeScreen>{
                     child: ListView.builder(
                       itemCount: followedData.length,
                       itemBuilder: (BuildContext context, int index){
+                        final String toField = followedData[index]["name"];
                         return ListTile(
-                          title: Text('Creator ${index+1} ${followedData[index]}'),
-                          onTap: () => onCreatorChanged(index+1),
+                          title: Text(toField),
+                          onTap: () => onCreatorChanged(toField),
                         );
                       }
                     ),
@@ -104,8 +116,8 @@ class _FollowerHomeScreen extends State<FollowerHomeScreen>{
                       itemCount: 20,
                       itemBuilder: (BuildContext context, int index){
                         return ListTile(
-                          title: Text('Loading Creator ${index+1}'),
-                          onTap: () => onCreatorChanged(index+1),
+                          title: Text('Loading Creator...'),
+                          //onTap: () => onCreatorChanged(index+1),
                         );
                       }
                     ),

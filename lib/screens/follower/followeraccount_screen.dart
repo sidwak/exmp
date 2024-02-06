@@ -49,7 +49,9 @@ class _FollowerAccountScreen extends State<FollowerAccountScreen>{
   }
 
   void searchItemTapped(int index){
-    debugPrint("ddb Tapped Creator ${firstNames[index]}");
+    debugPrint("ddb Tapped Creator ${pulledSearchData[index]["email"]}");
+    debugPrint("ddb Tapped Creator ${pulledSearchData[index]["name"]}");
+    DataMain().setFollowerFoData(pulledSearchData[index]["name"], pulledSearchData[index]["name"]);
   }
 
   List<Map<String, dynamic>> pulledSearchData= [];
@@ -100,11 +102,11 @@ class _FollowerAccountScreen extends State<FollowerAccountScreen>{
                         onSearchChanged(controller.text);
                         int seSize = matchingNames.length;
                         return List<ListTile>.generate(seSize, (int index) {
-                          final String item = 'Creator $index: ${matchingNames[index]}';
+                          final String item = matchingNames[index];
                           return ListTile(
                             title: Text(item),
                             onTap: () {
-                              searchItemTapped(index);
+                              searchItemTapped(firstNames.indexOf(item));
                               setState(() {
                                 controller.closeView(item);
                               });

@@ -26,7 +26,7 @@ class DataMain{
 
   void addFollowerAccount () async {
     final name = user.email?.split('@');
-    List<String> followers = ["null", "null"];
+    List<Map<String, String>> followers = [{"name": "null", "email": "null"}, {"name": "null", "email": "null"}];
     CollectionReference ref = instance.collection("followers");
     await ref.doc(name?[0]).set({
       "email": user.email,
@@ -36,6 +36,7 @@ class DataMain{
   }
 
   //  BELOW VARS BELONGS TO BELOW FUNCTION  
+  static List<Map<String, dynamic>> pulledSearchData = [];
   Future<List<Map<String, dynamic>>> getSearchData() async{
     List<Map<String, dynamic>> searchData = [];
     CollectionReference ref = instance.collection("creators");
@@ -45,6 +46,7 @@ class DataMain{
         for (var docSnapshot in snapshot.docs){
           final data = docSnapshot.data() as Map<String, dynamic>;
           searchData.add(data);
+          pulledSearchData.add(data);
         }
       } 
     );
@@ -96,7 +98,7 @@ class DataMain{
     return retVal;
   }
 
-  List<dynamic> foFollowedData = [];
+  static List<dynamic> foFollowedData = [];
   Future<List<dynamic>> getFollowerFoData() async {
     List<dynamic> retVal = [];
     final name = user.email?.split('@');
@@ -110,14 +112,21 @@ class DataMain{
           debugPrint("ddb following data $retVal");
         }
         else {
-
         }
       }
     );
     return retVal;
   }
 
-  void setFollowerFoData(String toSet){
-    
+  void setFollowerFoData(String toSetName, String toSetEmail) async {
+    final name = user.email?.split('@');
+    final username = name?[0];
+    debugPrint("ddb datafo before $foFollowedData");
+    foFollowedData.add({"name": toSetName, "email": toSetEmail});
+    debugPrint("ddb datafo after $foFollowedData");
+    CollectionReference ref = instance.collection("followers");
+    await ref.doc(username).update({
+      "following" : foFollowedData
+    }).then((value) => debugPrint("ddb datafollower set successfully"));
   }
 }
