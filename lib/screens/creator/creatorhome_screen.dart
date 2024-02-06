@@ -6,6 +6,7 @@ import 'package:exm_p/screens/creator/twittercreator_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:exm_p/screens/creator/youtubecreator_screen.dart';
 
+
 class CreatorHomeScreen extends StatefulWidget{
   const CreatorHomeScreen({super.key});
 
@@ -23,35 +24,8 @@ class _CreatorHomeScreen extends State<CreatorHomeScreen>{
   TwitterCreatorScreen twCreatorScreen = TwitterCreatorScreen(key: twGlobalKey);
   RedditCreatorScreen rdCreatorScreen = RedditCreatorScreen(key: rdGlobalKey,);
   CreatorAccountScreen accountScreen = CreatorAccountScreen();
-
-
-  Future<void> initLinks() async {
-    if (await DataMain().getCreatorLinks()){
-      debugPrint("ddb geeting links");
-      DataMain().getCreatorData();
-      Map<String, dynamic> getData = DataMain().ret;
-      
-      setState(() {
-        //ytCreatorScreen = YoutubeCreatorScreen(key: globalKey);
-        
-      });
-    }
-    else {
-      debugPrint("ddb not getting links");
-      youtubeMainUrl = "https://www.youtube.com";
-      instamgramMainUrl = "https://www.instagram.com/Instagram/";
-      twitterMainUrl = "https://twitter.com/x";
-      redditMainUrl = "https://www.reddit.com/";
-       globalKey.currentState?.setState(() {});
-      igGlobalKey.currentState?.setState(() {});
-      twGlobalKey.currentState?.setState(() {});
-      rdGlobalKey.currentState?.setState(() {});
-      setState(() {
-
-      });
-    }
-  }
-
+  //Widget ytScreenWidget = YoutubeCreatorScreen(key: globalKey);
+ 
   void onChangedDestination(int index){
     setState(() {
       currentPageIndex = index;
@@ -64,7 +38,6 @@ class _CreatorHomeScreen extends State<CreatorHomeScreen>{
 
   @override
   Widget build(BuildContext context){  
-    debugPrint("ddb first buildling");
     return Scaffold(
       bottomNavigationBar: GestureDetector(
         onHorizontalDragEnd: (details){
@@ -159,7 +132,7 @@ class _CreatorHomeScreen extends State<CreatorHomeScreen>{
                   Text("Account")
                 ],
               ),
-            ),  
+            ),
           ],
         ),
       ),
@@ -173,20 +146,10 @@ class _CreatorHomeScreen extends State<CreatorHomeScreen>{
           builder: (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
             Widget children;
             if (snapshot.hasData){
-              debugPrint("ddb 176"+snapshot.data?["yt_link"]);
-              if (ytCreatorScreen == null){
-                debugPrint("ddb 178 is null");
-              }
               ytCreatorScreen.setUrl(snapshot.data?["yt_link"]);
-              //globalKey.currentState?.setUrl(snapshot.data?["yt_.link"]);
-              //instamgramMainUrl = snapshot.data?["insta_link"];
-              //twitterMainUrl = snapshot.data?["twi_link"];
-              //redditMainUrl = snapshot.data?["red_link"];
-              
-              globalKey.currentState?.setState(() {});
-              igGlobalKey.currentState?.setState(() {});
-              twGlobalKey.currentState?.setState(() {});
-              rdGlobalKey.currentState?.setState(() {});
+              igCreatorScreen.setUrl(snapshot.data?["insta_link"]);
+              twCreatorScreen.setUrl(snapshot.data?["twi_link"]);
+              rdCreatorScreen.setUrl(snapshot.data?["red_link"]);
               children = LayoutBuilder(
                 builder: (BuildContext ctx, BoxConstraints constraints){
                   return Center(

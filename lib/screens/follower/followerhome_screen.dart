@@ -1,3 +1,4 @@
+import 'package:exm_p/datamain.dart';
 import 'package:exm_p/screens/follower/followeraccount_screen.dart';
 import 'package:exm_p/screens/follower/instagramfollower_screen.dart';
 import 'package:exm_p/screens/follower/redditfollower_screen.dart';
@@ -38,67 +39,83 @@ class _FollowerHomeScreen extends State<FollowerHomeScreen>{
     );
   }
 
+  List<dynamic> followedData = [];
+  final Future<List<dynamic>> fodData = Future<List<dynamic>>(
+    () async => await DataMain().getFollowerFoData()
+  );
+
   @override
   Widget build(BuildContext context){
     mainCtx = context;
     return Scaffold(
       appBar: AppBar(title: Text("Content App"),),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue
-              ),
-              child: Text("Creators"),
-            ),
-            Container(
-              color: Colors.red,
-              padding: EdgeInsets.zero,
-              margin: EdgeInsets.zero,
-              height: 500,
-              child: ListView.builder(
-                itemCount: 20,
-                itemBuilder: (BuildContext context, int index){
-                  return ListTile(
-                    title: Text('Creator ${index+1}'),
-                    onTap: () => onCreatorChanged(index+1),
-                  );
-                }
-              ),
-            )
-          ],
-        )
-        /* ListView.builder(
-                itemCount: 8,
-                itemBuilder: (BuildContext context, int index){
-                  return ListTile(
-                    title: Text('Creator ${index+1}'),
-                  );
-                }
-              ) */
-         /* Column(
-          children: <Widget>[
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue
-              ),
-              child: Text("Creators")
-            ),
-            Container(
-              height: 500,
-              child: ListView.builder(
-                itemCount: 8,
-                itemBuilder: (BuildContext context, int index){
-                  return ListTile(
-                    title: Text('Creator ${index+1}'),
-                  );
-                }
-              )
-            )
-          ],
-        ) */ 
+      drawer: FutureBuilder(
+        future: fodData,
+        builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot){
+          Widget children;
+          if (snapshot.hasData){
+            followedData = snapshot.data!;
+            children = Drawer(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  const DrawerHeader(
+                    decoration: BoxDecoration(
+                      color: Colors.blue
+                    ),
+                    child: Text("Creators"),
+                  ),
+                  Container(
+                    color: Colors.red,
+                    padding: EdgeInsets.zero,
+                    margin: EdgeInsets.zero,
+                    height: 500,
+                    child: ListView.builder(
+                      itemCount: followedData.length,
+                      itemBuilder: (BuildContext context, int index){
+                        return ListTile(
+                          title: Text('Creator ${index+1} ${followedData[index]}'),
+                          onTap: () => onCreatorChanged(index+1),
+                        );
+                      }
+                    ),
+                  )
+                ],
+              ) 
+            );
+          }
+          else {
+            children = Drawer(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  const DrawerHeader(
+                    decoration: BoxDecoration(
+                      color: Colors.blue
+                    ),
+                    child: Text("Creators"),
+                  ),
+                  Container(
+                    color: Colors.red,
+                    padding: EdgeInsets.zero,
+                    margin: EdgeInsets.zero,
+                    height: 500,
+                    child: ListView.builder(
+                      itemCount: 20,
+                      itemBuilder: (BuildContext context, int index){
+                        return ListTile(
+                          title: Text('Loading Creator ${index+1}'),
+                          onTap: () => onCreatorChanged(index+1),
+                        );
+                      }
+                    ),
+                  )
+                ],
+              ) 
+            );
+          }
+          return children;
+        }
       ),
       bottomNavigationBar: GestureDetector(
         onHorizontalDragEnd: (details){
@@ -106,7 +123,6 @@ class _FollowerHomeScreen extends State<FollowerHomeScreen>{
           if (details.primaryVelocity! > sensitivity) {
               debugPrint("swiperight");
               if (ytFoGlobalKey.currentState == null){
-                //debugPrint("currentstateisnull");
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("currentstateisnull")));
               }
               else {               

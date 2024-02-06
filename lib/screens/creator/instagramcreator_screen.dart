@@ -6,6 +6,10 @@ final GlobalKey<_InstagramCreatorScreen> igGlobalKey = GlobalKey<_InstagramCreat
 class InstagramCreatorScreen extends StatefulWidget{
   const InstagramCreatorScreen({super.key});
 
+  void setUrl(String toSet){
+    instamgramMainUrl = toSet;
+  }
+
   @override
   State<InstagramCreatorScreen> createState() => _InstagramCreatorScreen();
 }

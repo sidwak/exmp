@@ -6,6 +6,10 @@ final GlobalKey<_TwitterCreatorScreen> twGlobalKey = GlobalKey<_TwitterCreatorSc
 class TwitterCreatorScreen extends StatefulWidget{
   const TwitterCreatorScreen ({super.key});
 
+  void setUrl(String toSet){
+    twitterMainUrl = toSet;
+  }
+
   @override
   State<TwitterCreatorScreen> createState() => _TwitterCreatorScreen();
 }

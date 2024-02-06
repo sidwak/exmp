@@ -6,6 +6,10 @@ final GlobalKey<_RedditCreatorScreen> rdGlobalKey = GlobalKey<_RedditCreatorScre
 class RedditCreatorScreen extends StatefulWidget{
   const RedditCreatorScreen({super.key});
 
+  void setUrl(String toSet){
+    redditMainUrl = toSet;
+  }
+
   @override
   State<RedditCreatorScreen> createState() => _RedditCreatorScreen();
 }

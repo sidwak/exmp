@@ -22,6 +22,8 @@ class DataMain{
     });
   }
 
+
+
   void addFollowerAccount () async {
     final name = user.email?.split('@');
     List<String> followers = ["null", "null"];
@@ -34,8 +36,8 @@ class DataMain{
   }
 
   //  BELOW VARS BELONGS TO BELOW FUNCTION  
-  List<Map<String, dynamic>> searchData = [];
-  void getSearchData() async{
+  Future<List<Map<String, dynamic>>> getSearchData() async{
+    List<Map<String, dynamic>> searchData = [];
     CollectionReference ref = instance.collection("creators");
     searchData = [];
     await ref.get().then(
@@ -46,9 +48,10 @@ class DataMain{
         }
       } 
     );
+    return searchData;
   }
 
-  Future<bool> getCreatorLinks() async {
+  /* Future<bool> getCreatorLinks() async {
     final nameEmail = user.email?.split('@');
     DocumentReference ref = instance.collection("creators").doc(nameEmail?[0]);
     bool exists = false;
@@ -65,24 +68,56 @@ class DataMain{
       }
     });
     return exists;
-  }
+  } */
 
   //  BELOW VARS BELONGS TO BELOW FUNCTION  
-  Map<String, dynamic> ret = {};
   Future<Map<String, dynamic>> getCreatorData () async {
     Map<String, dynamic> retVal = {};
     final nameEmail = user.email?.split('@');
     final docRef = instance.collection("creators").doc(nameEmail?[0]);
+    debugPrint("ddb called");
     await docRef.get().then(
-      (DocumentSnapshot doc) {
-        final data = doc.data() as Map<String, dynamic>;
-        ret = data;
-        retVal = data;
-        debugPrint("ddb " + ret.toString());
+      (DocumentSnapshot doc) {       
+        if (doc.exists){
+          final data = doc.data() as Map<String, dynamic>;
+          retVal = data;
+        }
+        else {
+          retVal["yt_link"] = "https://www.youtube.com";
+          retVal["insta_link"] = "https://www.instagram.com/Instagram/";
+          retVal["twi_link"] = "https://twitter.com/x";
+          retVal["red_link"] = "https://www.reddit.com/";
+        }
       },
-      onError: (e) => debugPrint("ddb Error getting document: $e"),
+      onError: (e){
+        debugPrint("ddb error $e");
+      }, 
     );
-    debugPrint("ddb "+ret.toString());
     return retVal;
+  }
+
+  List<dynamic> foFollowedData = [];
+  Future<List<dynamic>> getFollowerFoData() async {
+    List<dynamic> retVal = [];
+    final name = user.email?.split('@');
+    DocumentReference ref = instance.collection("followers").doc(name?[0]);
+    await ref.get().then(
+      (DocumentSnapshot doc){
+        if (doc.exists){
+          final data = doc.data() as Map<String, dynamic>;
+          retVal = data["following"];
+          foFollowedData = retVal;
+          debugPrint("ddb following data $retVal");
+        }
+        else {
+
+        }
+      }
+    );
+    return retVal;
+  }
+
+  void setFollowerFoData(String toSet){
+    
   }
 }
