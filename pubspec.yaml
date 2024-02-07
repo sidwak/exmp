@@ -40,6 +40,7 @@ dependencies:
   firebase_auth: ^4.17.1
   firebase_database: ^10.4.4
   cloud_firestore: ^4.15.3
+  google_fonts: ^6.1.0
 
 dev_dependencies:
   flutter_test:
@@ -59,6 +60,7 @@ dev_dependencies:
 flutter:
   assets:
     - assets/
+    - assets/Images/twitch_logo.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

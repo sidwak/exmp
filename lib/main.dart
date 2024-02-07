@@ -7,6 +7,7 @@ import 'package:exm_p/screens/follower/followersignup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:exm_p/screens/main/mainlogin_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -23,12 +24,24 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.deepPurple,
+          background: Colors.black,
+          primary: const Color.fromARGB(255, 145, 70, 255),
+          inversePrimary: Colors.white
+        ),
+        useMaterial3: true,
+        //brightness: Brightness.dark
+      ),
+      themeMode: ThemeMode.dark,
       initialRoute: MainLoginScreen.id,
       routes: {
         MainLoginScreen.id: (context) => MainLoginScreen(),
@@ -64,7 +77,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
