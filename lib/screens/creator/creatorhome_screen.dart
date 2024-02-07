@@ -146,6 +146,7 @@ class _CreatorHomeScreen extends State<CreatorHomeScreen>{
           builder: (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
             Widget children;
             if (snapshot.hasData){
+              debugPrint("ddb snapshot ${snapshot.data}");
               ytCreatorScreen.setUrl(snapshot.data?["yt_link"]);
               igCreatorScreen.setUrl(snapshot.data?["insta_link"]);
               twCreatorScreen.setUrl(snapshot.data?["twi_link"]);
@@ -179,7 +180,7 @@ class _CreatorHomeScreen extends State<CreatorHomeScreen>{
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 16),
-                      child: Text('Loading Links...'),
+                      child: Text('Loading...'),
                     ),
                   ],
                 ),

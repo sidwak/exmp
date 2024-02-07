@@ -14,24 +14,41 @@ class RedditCreatorScreen extends StatefulWidget{
   State<RedditCreatorScreen> createState() => _RedditCreatorScreen();
 }
 
-String redditMainUrl = "https://www.reddit.com/r/LinusTechTips/";
+String redditMainUrl = "https://www.reddit.com/";
+Uri mainRdUri = Uri.parse(redditMainUrl);
 
 class _RedditCreatorScreen extends State<RedditCreatorScreen>{
 
   void setLinkAndReload(String newLink){
-      setState(() {
-        redditMainUrl = newLink;
-      });
-    }
+    setState(() {
+      redditMainUrl = newLink;
+      Uri parseUrl;
+      try {
+        parseUrl = Uri.parse(redditMainUrl);
+      }
+      on Exception catch (e) {
+        parseUrl = Uri.parse("https://www.reddit.com/");
+      }
+      try {
+        mainRdUri = parseUrl;
+        wvCntrl.loadRequest(parseUrl);
+      }
+      on ArgumentError catch (e) {
+        wvCntrl.loadRequest(Uri.parse("https://www.reddit.com/"));
+        mainRdUri = Uri.parse("https://www.reddit.com/");
+      }
+    });
+  }
 
   WebViewController wvCntrl = WebViewController();
 
   @override
   Widget build(BuildContext context){
+
     wvCntrl = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
     ..setBackgroundColor(Colors.red)
-    ..loadRequest(Uri.parse(redditMainUrl));
+    ..loadRequest(mainRdUri);
 
     return Scaffold(
       body: WebViewWidget(

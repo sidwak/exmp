@@ -14,7 +14,8 @@ class TwitterCreatorScreen extends StatefulWidget{
   State<TwitterCreatorScreen> createState() => _TwitterCreatorScreen();
 }
 
-String twitterMainUrl = "https://twitter.com/LinusTech";
+String twitterMainUrl = "https://twitter.com/x";
+Uri mainTwUri = Uri.parse(twitterMainUrl);
 
 class _TwitterCreatorScreen extends State<TwitterCreatorScreen>{
   WebViewController wvCntrl = WebViewController();
@@ -22,15 +23,31 @@ class _TwitterCreatorScreen extends State<TwitterCreatorScreen>{
   void setLinkAndReload(String newLink){
     setState(() {
       twitterMainUrl = newLink;
+      Uri parseUrl;
+      try {
+        parseUrl = Uri.parse(twitterMainUrl);
+      }
+      on Exception catch (e) {
+        parseUrl = Uri.parse("https://twitter.com/x");
+      }
+      try {
+        mainTwUri = parseUrl;
+        wvCntrl.loadRequest(parseUrl);
+      }
+      on ArgumentError catch (e) {
+        wvCntrl.loadRequest(Uri.parse("https://twitter.com/x"));
+        mainTwUri = Uri.parse("https://twitter.com/x");
+      }
     });
   }
 
   @override
   Widget build(BuildContext context){
+
     wvCntrl = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
     ..setBackgroundColor(Colors.red)
-    ..loadRequest(Uri.parse(twitterMainUrl));
+    ..loadRequest(mainTwUri);
     
     return Scaffold(
       body: WebViewWidget(

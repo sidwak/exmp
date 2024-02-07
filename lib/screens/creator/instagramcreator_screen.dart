@@ -14,13 +14,29 @@ class InstagramCreatorScreen extends StatefulWidget{
   State<InstagramCreatorScreen> createState() => _InstagramCreatorScreen();
 }
 
-String instamgramMainUrl = "https://www.instagram.com/linustech/";
+String instamgramMainUrl = "https://www.instagram.com/Instagram/";
+Uri mainIgUri = Uri.parse(instamgramMainUrl);
 
 class _InstagramCreatorScreen extends State<InstagramCreatorScreen>{
 
   void setLinkAndReload(String newLink){
     setState(() {
       instamgramMainUrl = newLink;
+      Uri parseUrl;
+      try {
+        parseUrl = Uri.parse(instamgramMainUrl);
+      }
+      on Exception catch (e) {
+        parseUrl = Uri.parse("https://www.instagram.com/Instagram/");
+      }
+      try {
+        mainIgUri = parseUrl;
+        wvCntrl.loadRequest(parseUrl);
+      }
+      on ArgumentError catch (e) {
+        wvCntrl.loadRequest(Uri.parse("https://www.instagram.com/Instagram/"));
+        mainIgUri = Uri.parse("https://www.instagram.com/Instagram/");
+      }
     });
   }
 
@@ -28,10 +44,12 @@ class _InstagramCreatorScreen extends State<InstagramCreatorScreen>{
 
   @override
   Widget build(BuildContext context){
+
     wvCntrl = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
     ..setBackgroundColor(Colors.red)
-    ..loadRequest(Uri.parse(instamgramMainUrl));
+    ..loadRequest(mainIgUri);
+
 
     return Scaffold(
       body: WebViewWidget(

@@ -16,13 +16,29 @@ class YoutubeCreatorScreen extends StatefulWidget{
   State<YoutubeCreatorScreen> createState() => _YoutubeCreatorScreen();
 }
 
-String youtubeMainUrl = "https://www.youtube.com/user/linustechtips";
+String youtubeMainUrl = "https://www.youtube.com";
+Uri mainYtUri = Uri.parse(youtubeMainUrl);
 
 class _YoutubeCreatorScreen extends State<YoutubeCreatorScreen>{
 
   void setLinkAndReload(String newLink){
     setState(() {
       youtubeMainUrl = newLink;
+      Uri parseUrl;
+      try {
+        parseUrl = Uri.parse(youtubeMainUrl);
+      }
+      on Exception catch (e) {
+        parseUrl = Uri.parse("https://www.youtube.com");
+      }
+      try {
+        mainYtUri = parseUrl;
+        wvCntrl.loadRequest(parseUrl);
+      }
+      on ArgumentError catch (e) {
+        wvCntrl.loadRequest(Uri.parse("https://www.youtube.com"));
+        mainYtUri = Uri.parse("https://www.youtube.com");
+      }
     });
   }
 
@@ -31,20 +47,12 @@ class _YoutubeCreatorScreen extends State<YoutubeCreatorScreen>{
   BuildContext? mainCtx;
 
   @override
-  Widget build(BuildContext context){
-
-    late Uri parseUrl;
-    try {
-      parseUrl = Uri.parse(youtubeMainUrl);
-    }
-    on FormatException catch (e) {
-      parseUrl = Uri.parse("https://www.youtube.com/user/linustechtips");
-    }
+  Widget build(BuildContext context){   
 
     wvCntrl = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
     ..setBackgroundColor(Colors.red)
-    ..loadRequest(parseUrl);
+    ..loadRequest(mainYtUri);
 
     mainCtx = context;
     return Scaffold(
