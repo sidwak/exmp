@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.deepPurple,
           background: Colors.black,
-          primary: const Color.fromARGB(255, 145, 70, 255),
+          primary: const Color.fromARGB(255, 165, 68, 255),
           inversePrimary: Colors.white
         ),
         useMaterial3: true,

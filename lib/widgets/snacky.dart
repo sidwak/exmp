@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 
 class SnackyBar extends SnackBar{
-  String toSet;
+  final String toSet;
   SnackyBar({super.key, required this.toSet}): super(
     content: Text(
       toSet, 
       textAlign: TextAlign.center,
+      style: const TextStyle(
+        color: Colors.white
+      ),
     ),
-    backgroundColor: Colors.blue.shade300,
+    backgroundColor: const Color.fromARGB(255, 145, 70, 255),
     elevation: 6.0,
     behavior: SnackBarBehavior.floating,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25)))
+    shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25)))
   );
 }

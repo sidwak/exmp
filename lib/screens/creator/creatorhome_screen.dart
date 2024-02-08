@@ -5,6 +5,8 @@ import 'package:exm_p/screens/creator/redditcreator_screen.dart';
 import 'package:exm_p/screens/creator/twittercreator_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:exm_p/screens/creator/youtubecreator_screen.dart';
+import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 class CreatorHomeScreen extends StatefulWidget{
@@ -39,6 +41,25 @@ class _CreatorHomeScreen extends State<CreatorHomeScreen>{
   @override
   Widget build(BuildContext context){  
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        automaticallyImplyLeading: false,
+        leading: Image.asset("assets/Images/twitch_logo.png"),
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: Colors.black
+
+        ),
+        title: Text(
+          "Tameoto",
+          style: GoogleFonts.nunito(
+            fontSize: 21,
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).colorScheme.inversePrimary
+          ),
+        ),
+        titleSpacing: 0,
+        foregroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ),
       bottomNavigationBar: GestureDetector(
         onHorizontalDragEnd: (details){
           double sensitivity = 8;
@@ -77,37 +98,56 @@ class _CreatorHomeScreen extends State<CreatorHomeScreen>{
           height: 50,
           indicatorColor: Colors.amber,
           selectedIndex: currentPageIndex,
+          backgroundColor: Theme.of(context).colorScheme.primary,
           destinations: <Widget>[
             GestureDetector(
               onTap: ()=>onChangedDestination(0),
-              child: const Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Icon(Icons.video_file),
-                  Text("Youtube")
+                children: <Widget>[                  
+                  Container(
+                    padding: const EdgeInsets.all(2),
+                    child: SizedBox(
+                      height: 46,
+                      width: 46,
+                      child: Image.asset("assets/Images/ytlogo.png"),
+                    ),
+                  )
                 ],
               ),
             ), 
             GestureDetector(
               onTap: ()=>onChangedDestination(1),
-              child: const Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Icon(Icons.photo),
-                  Text("Instagram")
+                children: <Widget>[                 
+                  Container(
+                    padding: const EdgeInsets.all(2),
+                    child: SizedBox(
+                      height: 46,
+                      width: 46,
+                      child: Image.asset("assets/Images/instalogo.png"),
+                    ),
+                  )
                 ],
               ),
             ), 
             GestureDetector(
               onTap: ()=>onChangedDestination(2),
-              child: const Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Icon(Icons.notifications),
-                  Text("Twitter")
+                  Container(
+                    padding: const EdgeInsets.all(2),
+                    child: SizedBox(
+                      height: 35,
+                      width: 35,
+                      child: Image.asset("assets/Images/twilogo.png"),
+                    ),
+                  )
                 ],
               ),
             ),

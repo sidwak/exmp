@@ -61,6 +61,9 @@ flutter:
   assets:
     - assets/
     - assets/Images/twitch_logo.png
+    - assets/Images/ytlogo.png
+    - assets/Images/instalogo.png
+    - assets/Images/twilogo.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

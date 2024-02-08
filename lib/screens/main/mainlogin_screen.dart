@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:exm_p/screens/creator/creatorlogin_screen.dart';
 import 'package:exm_p/screens/follower/followerlogin_screen.dart';
 import 'package:flutter/material.dart';
@@ -19,29 +18,32 @@ class MainLoginScreen extends StatelessWidget {
   Widget build(BuildContext context){
     return Scaffold(
       body: Container(
-        //padding: const EdgeInsets.only(top: 100),      
+        //padding: const EdgeInsets.only(top: 100),    
+        width: double.infinity,
+        height: double.infinity,  
         child: LayoutBuilder(
           builder: (BuildContext ctx, BoxConstraints constraints){
             double w = constraints.maxWidth;
             double h = constraints.maxHeight;
             return Container(
-              margin: EdgeInsets.only(top: h * 0.07),
+              //margin: EdgeInsets.only(top: h * 0.25),
+              alignment: Alignment.center,
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Container (
-                      width: h * 0.30,
+                      width: w * 0.60,
                       //color: Theme.of(context).colorScheme.inversePrimary,
-                      height: h * 0.30,
+                      height: w * 0.60,
                       child: Center(
                         child: Image.asset("assets/Images/twitch_logo.png")
                       )
                     ),
                     Container(
                       margin: const EdgeInsets.only(top: 10),
-                      child: Text("Welcome", 
+                      child: Text("Welcome,", 
                         style: GoogleFonts.nunito(
                           fontSize: 20,
                           fontWeight: FontWeight.normal,
@@ -51,7 +53,7 @@ class MainLoginScreen extends StatelessWidget {
                     ),
                     Container(
                       margin: const EdgeInsets.only(top: 0),
-                      child: Text("Login/Sign Up as", 
+                      child: Text("Login/Signup as", 
                         style: GoogleFonts.nunito(
                           fontSize: 20,
                           fontWeight: FontWeight.normal,

@@ -61,7 +61,7 @@ class _FollowerHomeScreen extends State<FollowerHomeScreen>{
     mainCtx = context;
     DataMain().getSearchData();
     return Scaffold(
-      appBar: AppBar(title: Text("Content App"),),
+      appBar: AppBar(title: const Text("Tameoto"),),
       drawer: FutureBuilder(
         future: fodData,
         builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot){
