@@ -108,10 +108,14 @@ class _CreatorHomeScreen extends State<CreatorHomeScreen>{
                 children: <Widget>[                  
                   Container(
                     padding: const EdgeInsets.all(2),
+                    decoration: currentPageIndex==0 ? BoxDecoration(
+                      border: Border.all(color: Colors.white, width: 2),
+                      borderRadius: const BorderRadius.all(Radius.circular(7.0))
+                    ) : null,
                     child: SizedBox(
-                      height: 46,
-                      width: 46,
-                      child: Image.asset("assets/Images/ytlogo.png"),
+                      height: 35,
+                      width: 35,
+                      child: Image.asset("assets/Images/ytlogo3.png"),
                     ),
                   )
                 ],
@@ -125,10 +129,14 @@ class _CreatorHomeScreen extends State<CreatorHomeScreen>{
                 children: <Widget>[                 
                   Container(
                     padding: const EdgeInsets.all(2),
+                    decoration: currentPageIndex==1 ? BoxDecoration(
+                      border: Border.all(color: Colors.white, width: 2),
+                      borderRadius: const BorderRadius.all(Radius.circular(7.0))
+                    ) : null,
                     child: SizedBox(
-                      height: 46,
-                      width: 46,
-                      child: Image.asset("assets/Images/instalogo.png"),
+                      height: 35,
+                      width: 35,
+                      child: Image.asset("assets/Images/instalogo3.png"),
                     ),
                   )
                 ],
@@ -142,10 +150,14 @@ class _CreatorHomeScreen extends State<CreatorHomeScreen>{
                 children: <Widget>[
                   Container(
                     padding: const EdgeInsets.all(2),
+                    decoration: currentPageIndex==2 ? BoxDecoration(
+                      border: Border.all(color: Colors.white, width: 2),
+                      borderRadius: const BorderRadius.all(Radius.circular(7.0))
+                    ) : null,
                     child: SizedBox(
                       height: 35,
                       width: 35,
-                      child: Image.asset("assets/Images/twilogo.png"),
+                      child: Image.asset("assets/Images/twilogo3.png"),
                     ),
                   )
                 ],
@@ -153,23 +165,43 @@ class _CreatorHomeScreen extends State<CreatorHomeScreen>{
             ),
             GestureDetector(
               onTap: ()=>onChangedDestination(3),
-              child: const Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Icon(Icons.reddit),
-                  Text("Reddit")
+                  Container(
+                    padding: const EdgeInsets.all(2),
+                    decoration: currentPageIndex==3 ? BoxDecoration(
+                      border: Border.all(color: Colors.white, width: 2),
+                      borderRadius: const BorderRadius.all(Radius.circular(7.0))
+                    ) : null,
+                    child: SizedBox(
+                      height: 35,
+                      width: 35,
+                      child: Image.asset("assets/Images/redditlogo2.png"),
+                    ),
+                  )
                 ],
               ),
             ),
             GestureDetector(
               onTap: ()=>onChangedDestination(4),
-              child: const Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Icon(Icons.verified_user),
-                  Text("Account")
+                  Container(
+                    padding: const EdgeInsets.all(2),
+                    decoration: currentPageIndex==4 ? BoxDecoration(
+                      border: Border.all(color: Colors.white, width: 2),
+                      borderRadius: const BorderRadius.all(Radius.circular(7.0))
+                    ) : null,
+                    child: SizedBox(
+                      height: 35,
+                      width: 35,
+                      child: Image.asset("assets/Images/accountlogo2.png"),
+                    ),
+                  )
                 ],
               ),
             ),

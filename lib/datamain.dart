@@ -103,6 +103,7 @@ class DataMain{
     List<dynamic> retVal = [];
     final name = user.email?.split('@');
     DocumentReference ref = instance.collection("followers").doc(name?[0]);
+    debugPrint("ddb func called");
     await ref.get().then(
       (DocumentSnapshot doc){
         if (doc.exists){
@@ -112,8 +113,9 @@ class DataMain{
           debugPrint("ddb following data $retVal");
         }
         else {
+          debugPrint("ddb no following data");
         }
-      }
+      },
     );
     return retVal;
   }

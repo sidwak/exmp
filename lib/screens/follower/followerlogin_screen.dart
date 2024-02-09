@@ -41,8 +41,8 @@ class FollowerLoginScreen extends StatelessWidget{
   }
 
   void loginButtonPressed(){
-    _controllerEmail.text = "sidwak4@gmail.com";
-    _controllerPassword.text = "siddhu";
+    //_controllerEmail.text = "sidwak4@gmail.com";
+    //_controllerPassword.text = "siddhu";
     signInWithEmailAndPassword();
   }
 

@@ -1,6 +1,7 @@
 import 'package:exm_p/datamain.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 final GlobalKey<_FollowerAccountScreen> foAcGlobalKey = GlobalKey<_FollowerAccountScreen>();
 
@@ -81,41 +82,69 @@ class _FollowerAccountScreen extends State<FollowerAccountScreen>{
                 builder: (BuildContext ctx, BoxConstraints constraints){
                   double w = constraints.maxWidth;
                   double h = constraints.maxHeight;
-                  return Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: SearchAnchor(
-                      builder: (BuildContext context, SearchController controller){
-                        return SearchBar(
-                          controller: controller,
-                          padding: const MaterialStatePropertyAll<EdgeInsets>(
-                            EdgeInsets.symmetric(horizontal: 16.0)),
-                          onTap: (){
-                            controller.openView();
-                          },
-                          onChanged: (_){
-                            controller.openView();
-                          },
-                          leading: const Icon(Icons.search),
-                        );
-                      },
-                      suggestionsBuilder: (BuildContext context, SearchController controller){
-                        onSearchChanged(controller.text);
-                        int seSize = matchingNames.length;
-                        return List<ListTile>.generate(seSize, (int index) {
-                          final String item = matchingNames[index];
-                          return ListTile(
-                            title: Text(item),
-                            onTap: () {
-                              searchItemTapped(firstNames.indexOf(item));
-                              setState(() {
-                                controller.closeView(item);
-                              });
-                            },
-                          );
-                        });
-                      },
-                    )
-                  );
+                  return Container(
+                    margin: const EdgeInsets.only(top: 100),
+                    child: Center(
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            margin: const EdgeInsets.only(bottom: 20),
+                            child: Text("Find Creators", 
+                              style: GoogleFonts.nunito(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.inversePrimary
+                              ),
+                            )
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: SearchAnchor(
+                              //dividerColor: Theme.of(context).colorScheme.background,
+                              viewBackgroundColor: Theme.of(context).colorScheme.background,
+                              builder: (BuildContext context, SearchController controller){
+                                return SearchBar(
+                                  controller: controller,
+                                  padding: const MaterialStatePropertyAll<EdgeInsets>(
+                                    EdgeInsets.symmetric(horizontal: 16.0)),
+                                  onTap: (){
+                                    controller.openView();
+                                  },
+                                  onChanged: (_){
+                                    controller.openView();
+                                  },
+                                  leading: const Icon(Icons.search),
+                                );
+                              },
+                              suggestionsBuilder: (BuildContext context, SearchController controller){
+                                onSearchChanged(controller.text);
+                                int seSize = matchingNames.length;
+                                return List<ListTile>.generate(seSize, (int index) {
+                                  final String item = matchingNames[index];
+                                  return ListTile(
+                                    title: Text(item, 
+                                      style: GoogleFonts.nunito(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.normal,
+                                        color: Theme.of(context).colorScheme.inversePrimary
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      searchItemTapped(firstNames.indexOf(item));
+                                      setState(() {
+                                        controller.closeView(item);
+                                      });
+                                    },
+                                    tileColor: Theme.of(context).colorScheme.primary,
+                                  );
+                                });
+                              },
+                            )
+                          ),
+                        ],
+                      ),
+                    ),
+                  ); 
                 },
               );
             }

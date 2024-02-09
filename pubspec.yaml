@@ -64,6 +64,17 @@ flutter:
     - assets/Images/ytlogo.png
     - assets/Images/instalogo.png
     - assets/Images/twilogo.png
+    - assets/Images/redditlogo.png
+    - assets/Images/accountlogo.png
+    - assets/Images/ytlogo2.png
+    - assets/Images/instalogo2.png
+    - assets/Images/twilogo2.png
+    - assets/Images/twilogo3.png
+    - assets/Images/ytlogo3.png
+    - assets/Images/instalogo3.png
+    - assets/Images/redditlogo2.png
+    - assets/Images/accountlogo2.png
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

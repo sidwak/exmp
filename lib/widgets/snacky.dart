@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SnackyBar extends SnackBar{
   final String toSet;
@@ -6,7 +7,9 @@ class SnackyBar extends SnackBar{
     content: Text(
       toSet, 
       textAlign: TextAlign.center,
-      style: const TextStyle(
+      style: GoogleFonts.nunito(
+        fontSize: 15,
+        fontWeight: FontWeight.normal,
         color: Colors.white
       ),
     ),

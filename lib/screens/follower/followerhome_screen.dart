@@ -5,6 +5,8 @@ import 'package:exm_p/screens/follower/redditfollower_screen.dart';
 import 'package:exm_p/screens/follower/twitterfollower_screen.dart';
 import 'package:exm_p/screens/follower/youtubefollower_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 //Do not import creator screens because global keys have same name
 
 class FollowerHomeScreen extends StatefulWidget{
@@ -56,17 +58,43 @@ class _FollowerHomeScreen extends State<FollowerHomeScreen>{
     () async => await DataMain().getFollowerFoData()
   );
 
+  var scafKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context){
     mainCtx = context;
     DataMain().getSearchData();
     return Scaffold(
-      appBar: AppBar(title: const Text("Tameoto"),),
+      key: scafKey,
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        automaticallyImplyLeading: false,
+        leading: GestureDetector(
+          child:Image.asset("assets/Images/twitch_logo.png"),
+          onTap: (){
+            scafKey.currentState?.openDrawer();
+          },
+        ),
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: Colors.black
+
+        ),
+        title: Text(
+          "Tameoto",
+          style: GoogleFonts.nunito(
+            fontSize: 21,
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).colorScheme.inversePrimary
+          ),
+        ),
+        titleSpacing: 0,
+        foregroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ),
       drawer: FutureBuilder(
         future: fodData,
         builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot){
           Widget children;
           if (snapshot.hasData){
+            debugPrint("ddb ${snapshot.data}");
             followedData = snapshot.data!;
             children = Drawer(
               child: ListView(
@@ -168,59 +196,110 @@ class _FollowerHomeScreen extends State<FollowerHomeScreen>{
           height: 50,
           indicatorColor: Colors.amber,
           selectedIndex: currentPageIndex,
+          backgroundColor: Theme.of(context).colorScheme.primary,
           destinations: <Widget>[
             GestureDetector(
               onTap: ()=> onChangedDestination(0),
-              child: const Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Icon(Icons.video_file),
-                  Text("Youtube")
+                children: <Widget>[                  
+                  Container(
+                    padding: const EdgeInsets.all(2),
+                    decoration: currentPageIndex==0 ? BoxDecoration(
+                      border: Border.all(color: Colors.white, width: 2),
+                      borderRadius: const BorderRadius.all(Radius.circular(7.0))
+                    ) : null,
+                    child: SizedBox(
+                      height: 35,
+                      width: 35,
+                      child: Image.asset("assets/Images/ytlogo3.png"),
+                    ),
+                  )
                 ],
               ),
             ), 
             GestureDetector(
               onTap: ()=>onChangedDestination(1),
-              child: const Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Icon(Icons.photo),
-                  Text("Instagram")
+                children: <Widget>[                 
+                  Container(
+                    padding: const EdgeInsets.all(2),
+                    decoration: currentPageIndex==1 ? BoxDecoration(
+                      border: Border.all(color: Colors.white, width: 2),
+                      borderRadius: const BorderRadius.all(Radius.circular(7.0))
+                    ) : null,
+                    child: SizedBox(
+                      height: 35,
+                      width: 35,
+                      child: Image.asset("assets/Images/instalogo3.png"),
+                    ),
+                  )
                 ],
               ),
             ), 
             GestureDetector(
               onTap: ()=>onChangedDestination(2),
-              child: const Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Icon(Icons.notifications),
-                  Text("Twitter")
+                  Container(
+                    padding: const EdgeInsets.all(2),
+                    decoration: currentPageIndex==2 ? BoxDecoration(
+                      border: Border.all(color: Colors.white, width: 2),
+                      borderRadius: const BorderRadius.all(Radius.circular(7.0))
+                    ) : null,
+                    child: SizedBox(
+                      height: 35,
+                      width: 35,
+                      child: Image.asset("assets/Images/twilogo3.png"),
+                    ),
+                  )
                 ],
               ),
             ),
             GestureDetector(
               onTap: ()=>onChangedDestination(3),
-              child: const Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Icon(Icons.reddit),
-                  Text("Reddit")
+                  Container(
+                    padding: const EdgeInsets.all(2),
+                    decoration: currentPageIndex==3 ? BoxDecoration(
+                      border: Border.all(color: Colors.white, width: 2),
+                      borderRadius: const BorderRadius.all(Radius.circular(7.0))
+                    ) : null,
+                    child: SizedBox(
+                      height: 35,
+                      width: 35,
+                      child: Image.asset("assets/Images/redditlogo2.png"),
+                    ),
+                  )
                 ],
               ),
             ),
             GestureDetector(
               onTap: ()=>onChangedDestination(4),
-              child: const Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Icon(Icons.verified_user),
-                  Text("Account")
+                  Container(
+                    padding: const EdgeInsets.all(2),
+                    decoration: currentPageIndex==4 ? BoxDecoration(
+                      border: Border.all(color: Colors.white, width: 2),
+                      borderRadius: const BorderRadius.all(Radius.circular(7.0))
+                    ) : null,
+                    child: SizedBox(
+                      height: 35,
+                      width: 35,
+                      child: Image.asset("assets/Images/accountlogo2.png"),
+                    ),
+                  )
                 ],
               ),
             ),  
@@ -235,6 +314,7 @@ class _FollowerHomeScreen extends State<FollowerHomeScreen>{
         child: LayoutBuilder(
           builder: (BuildContext ctx, BoxConstraints constraints){
             double w = constraints.maxWidth;
+            double h = constraints.maxHeight;
             return Center(
               child: IndexedStack(
                 index: currentPageIndex,

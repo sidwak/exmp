@@ -63,8 +63,8 @@ class CreatorLoginScreen extends StatelessWidget {
   } */
 
   void loginButtonPressed(){
-    _controllerEmail.text = "sidwak6@gmail.com";
-    _controllerPassword.text = "Siddheshwar@1";
+    //_controllerEmail.text = "sidwak6@gmail.com";
+    //_controllerPassword.text = "Siddheshwar@1";
     signInWithEmailAndPassword();
     //Navigator.pushNamed(mainCtx, CreatorHomeScreen.id);
   }
