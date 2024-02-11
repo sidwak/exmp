@@ -100,24 +100,52 @@ class _FollowerHomeScreen extends State<FollowerHomeScreen>{
               child: ListView(
                 padding: EdgeInsets.zero,
                 children: [
-                  const DrawerHeader(
+                  DrawerHeader(
+                    margin: EdgeInsets.zero,
                     decoration: BoxDecoration(
-                      color: Colors.blue
+                      color: Theme.of(context).colorScheme.primary,
                     ),
-                    child: Text("Creators"),
+                    child: Container(
+                      alignment: Alignment.bottomLeft,
+                      child: Text(
+                      "Following",
+                      style: GoogleFonts.nunito(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inversePrimary
+                      ),
+                    )
+                    ),
                   ),
                   Container(
-                    color: Colors.red,
+                    //color: Theme.of(context).colorScheme.background,
                     padding: EdgeInsets.zero,
-                    margin: EdgeInsets.zero,
-                    height: 500,
+                    margin: const EdgeInsets.only(top: 3),
+                    height: MediaQuery.of(context).size.height * 0.75,
                     child: ListView.builder(
+                      padding: EdgeInsets.zero,
                       itemCount: followedData.length,
                       itemBuilder: (BuildContext context, int index){
                         final String toField = followedData[index]["name"];
-                        return ListTile(
-                          title: Text(toField),
-                          onTap: () => onCreatorChanged(toField),
+                        return Container( 
+                          margin: const EdgeInsets.fromLTRB(6, 3, 6, 3),
+                          decoration: BoxDecoration(
+                            border: Border.all(),
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            color: Colors.black,
+                          ),
+                          child: ListTile(
+                            leading: const Icon(Icons.person),
+                            title: Text(toField, 
+                              style: GoogleFonts.nunito(
+                                fontSize: 20,
+                                fontWeight: FontWeight.normal,
+                                color: Theme.of(context).colorScheme.inversePrimary
+                              ),
+                            ),
+                            onTap: () => onCreatorChanged(toField),
+                            //tileColor: Colors.black,
+                          )
                         );
                       }
                     ),
@@ -141,11 +169,11 @@ class _FollowerHomeScreen extends State<FollowerHomeScreen>{
                     color: Colors.red,
                     padding: EdgeInsets.zero,
                     margin: EdgeInsets.zero,
-                    height: 500,
+                    height: double.maxFinite,
                     child: ListView.builder(
                       itemCount: 20,
                       itemBuilder: (BuildContext context, int index){
-                        return ListTile(
+                        return const ListTile(
                           title: Text('Loading Creator...'),
                           //onTap: () => onCreatorChanged(index+1),
                         );

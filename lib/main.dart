@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
           background: Colors.black,
           primary: const Color.fromARGB(255, 165, 68, 255),
           inversePrimary: Colors.white,
+          brightness: Brightness.dark,
         ),
         useMaterial3: true,
         //brightness: Brightness.dark

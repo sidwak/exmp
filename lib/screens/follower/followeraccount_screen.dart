@@ -1,5 +1,5 @@
 import 'package:exm_p/datamain.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:exm_p/main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -52,7 +52,57 @@ class _FollowerAccountScreen extends State<FollowerAccountScreen>{
   void searchItemTapped(int index){
     debugPrint("ddb Tapped Creator ${pulledSearchData[index]["email"]}");
     debugPrint("ddb Tapped Creator ${pulledSearchData[index]["name"]}");
-    DataMain().setFollowerFoData(pulledSearchData[index]["name"], pulledSearchData[index]["name"]);
+    dialogBuilder(mainCtx, index);
+  }
+
+  Future<void> dialogBuilder (BuildContext cont, int index){
+    return showDialog<void>(
+      context: cont,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text('Follow ${pulledSearchData[index]["name"]}?', 
+          style: GoogleFonts.nunito(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).colorScheme.inversePrimary
+          ),
+        ),
+        content: Text('You will start following ${pulledSearchData[index]["name"]}', 
+          style: GoogleFonts.nunito(
+            fontSize: 17,
+            fontWeight: FontWeight.normal,
+            color: Theme.of(context).colorScheme.inversePrimary
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: (){
+              Navigator.of(context).pop();
+              debugPrint("ddb dialogcancel");
+            },
+            child: Text("Cancel", 
+              style: GoogleFonts.nunito(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.inversePrimary
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: (){             
+              DataMain().setFollowerFoData(pulledSearchData[index]["name"], pulledSearchData[index]["name"]);
+              Navigator.of(context).pop();
+            }, 
+            child: Text("Ok", 
+              style: GoogleFonts.nunito(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.inversePrimary
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   List<Map<String, dynamic>> pulledSearchData= [];
@@ -61,8 +111,11 @@ class _FollowerAccountScreen extends State<FollowerAccountScreen>{
   );
 
 
+  late BuildContext mainCtx;
+
   @override
   Widget build(BuildContext context){
+    mainCtx = context;
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -122,21 +175,26 @@ class _FollowerAccountScreen extends State<FollowerAccountScreen>{
                                 return List<ListTile>.generate(seSize, (int index) {
                                   final String item = matchingNames[index];
                                   return ListTile(
-                                    title: Text(item, 
-                                      style: GoogleFonts.nunito(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.normal,
-                                        color: Theme.of(context).colorScheme.inversePrimary
+                                      leading: const Icon(Icons.verified, color: Colors.white,),
+                                      title: Text(item, 
+                                        style: GoogleFonts.nunito(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.normal,
+                                          color: Theme.of(context).colorScheme.inversePrimary
+                                        ),
                                       ),
-                                    ),
-                                    onTap: () {
-                                      searchItemTapped(firstNames.indexOf(item));
-                                      setState(() {
-                                        controller.closeView(item);
-                                      });
-                                    },
-                                    tileColor: Theme.of(context).colorScheme.primary,
-                                  );
+                                      /* onTap: (){
+                                        searchItemTapped(firstNames.indexOf(item));
+                                        setState(() {
+                                          controller.closeView(item);
+                                        });
+                                      }, */
+                                      onTap: () => dialogBuilder(context, firstNames.indexOf(item)),
+                                      tileColor: Theme.of(context).colorScheme.primary,
+                                      shape: const Border(
+                                          bottom: BorderSide(width: 2),
+                                      ),
+                                    ); 
                                 });
                               },
                             )
