@@ -7,6 +7,7 @@ FirebaseAuth auth = FirebaseAuth.instance;
 User user = auth.currentUser!;
 
 class DataMain{
+
   void addCreatorAccount (String name, String ytLink, String instaLink, String twiLink, String 
   redLink) async {
     CollectionReference ref = instance.collection("creators");
@@ -22,11 +23,13 @@ class DataMain{
     });
   }
 
-
+  void setNewUser(User newUser){
+    user = newUser;
+  }
 
   void addFollowerAccount () async {
     final name = user.email?.split('@');
-    List<Map<String, String>> followers = [{"name": "null", "email": "null"}, {"name": "null", "email": "null"}];
+    List<Map<String, String>> followers = [];
     CollectionReference ref = instance.collection("followers");
     await ref.doc(name?[0]).set({
       "email": user.email,

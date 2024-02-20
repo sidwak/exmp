@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-final GlobalKey<_YoutubeCreatorScreen> globalKey = GlobalKey<_YoutubeCreatorScreen>();
+GlobalKey<_YoutubeCreatorScreen> globalKey = GlobalKey<_YoutubeCreatorScreen>();
 
 class YoutubeCreatorScreen extends StatefulWidget{
 
@@ -51,7 +51,7 @@ class _YoutubeCreatorScreen extends State<YoutubeCreatorScreen>{
 
     wvCntrl = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
-    ..setBackgroundColor(Colors.red)
+    ..setBackgroundColor(Colors.black)
     ..loadRequest(mainYtUri);
 
     mainCtx = context;

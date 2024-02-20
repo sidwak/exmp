@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-final GlobalKey<_RedditCreatorScreen> rdGlobalKey = GlobalKey<_RedditCreatorScreen>();
+GlobalKey<_RedditCreatorScreen> rdGlobalKey = GlobalKey<_RedditCreatorScreen>();
 
 class RedditCreatorScreen extends StatefulWidget{
   const RedditCreatorScreen({super.key});
@@ -47,7 +47,7 @@ class _RedditCreatorScreen extends State<RedditCreatorScreen>{
 
     wvCntrl = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
-    ..setBackgroundColor(Colors.red)
+    ..setBackgroundColor(Colors.black)
     ..loadRequest(mainRdUri);
 
     return Scaffold(

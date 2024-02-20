@@ -1,3 +1,4 @@
+import 'package:exm_p/datamain.dart';
 import 'package:exm_p/screens/follower/followerhome_screen.dart';
 import 'package:exm_p/screens/follower/followersignup_screen.dart';
 import 'package:exm_p/widgets/snacky.dart';
@@ -21,15 +22,23 @@ class FollowerLoginScreen extends StatelessWidget{
     try {
       await Auth().signInWithEmailAndPassword(
         email: _controllerEmail.text,
-        password: _controllerPassword.text);
-      FirebaseAuth.instance.authStateChanges().listen((User? user) {
-        if (user != null){
+        password: _controllerPassword.text).then((value){
           ScaffoldMessenger.of(mainCtx).showSnackBar(
             SnackyBar(toSet: "User Singed In")
           );
-          Navigator.pushNamed(mainCtx, FollowerHomeScreen.id);
-        }
-      });
+          DataMain().setNewUser(FirebaseAuth.instance.currentUser!);
+          Navigator.pushReplacementNamed(mainCtx, FollowerHomeScreen.id);
+        });
+      // FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      //   if (user != null){
+      //     ScaffoldMessenger.of(mainCtx).showSnackBar(
+      //       SnackyBar(toSet: "User Singed In")
+      //     );
+      //     DataMain().setNewUser(user);
+      //     Navigator.pushReplacementNamed(mainCtx, FollowerHomeScreen.id);
+      //   }
+      // }
+      //);
     }
     on FirebaseAuthException catch(e) {
       debugPrint(e.message);
@@ -41,8 +50,8 @@ class FollowerLoginScreen extends StatelessWidget{
   }
 
   void loginButtonPressed(){
-    //_controllerEmail.text = "sidwak4@gmail.com";
-    //_controllerPassword.text = "siddhu";
+    // _controllerEmail.text = "sidwak4@gmail.com";
+    // _controllerPassword.text = "siddhu";
     signInWithEmailAndPassword();
   }
 
@@ -140,7 +149,8 @@ class FollowerLoginScreen extends StatelessWidget{
                       child: ElevatedButton(
                         onPressed: () {
                           //Navigator.pushNamed(context, FollowerHomeScreen.id);
-                          signInWithEmailAndPassword();
+                          //signInWithEmailAndPassword();
+                          loginButtonPressed();
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStatePropertyAll<Color>(Theme.of(context).colorScheme.primary)

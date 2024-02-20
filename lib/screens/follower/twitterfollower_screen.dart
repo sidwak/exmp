@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-final GlobalKey<_TwitterFollowerScreen> twFoGlobalKey = GlobalKey<_TwitterFollowerScreen>();
+GlobalKey<_TwitterFollowerScreen> twFoGlobalKey = GlobalKey<_TwitterFollowerScreen>();
 
 class TwitterFollowerScreen extends StatefulWidget{
   const TwitterFollowerScreen({super.key});
@@ -28,7 +28,7 @@ class _TwitterFollowerScreen extends State<TwitterFollowerScreen>{
   Widget build(BuildContext context){
     wvCntrl = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
-    ..setBackgroundColor(Colors.red)
+    ..setBackgroundColor(Colors.black)
     ..loadRequest(Uri.parse(mainUrl));
     return Scaffold(
       body: Container(

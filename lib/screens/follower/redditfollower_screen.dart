@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-final GlobalKey<_RedditFollowerScreen> rdFoGlobalKey = GlobalKey<_RedditFollowerScreen>();
+GlobalKey<_RedditFollowerScreen> rdFoGlobalKey = GlobalKey<_RedditFollowerScreen>();
 
 class RedditFollowerScreen extends StatefulWidget{
   const RedditFollowerScreen({super.key});
@@ -28,7 +28,7 @@ class _RedditFollowerScreen extends State<RedditFollowerScreen>{
   Widget build(BuildContext context){
     wvCntrl = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
-    ..setBackgroundColor(Colors.red)
+    ..setBackgroundColor(Colors.black)
     ..loadRequest(Uri.parse(mainUrl));
     return Scaffold(
       body: Container(

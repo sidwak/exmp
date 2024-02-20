@@ -3,7 +3,7 @@ import 'package:exm_p/widgets/staticfields.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-final GlobalKey<_YoutubeFollowerScreen> ytFoGlobalKey = GlobalKey<_YoutubeFollowerScreen>();
+GlobalKey<_YoutubeFollowerScreen> ytFoGlobalKey = GlobalKey<_YoutubeFollowerScreen>();
 
 class YoutubeFollowerScreen extends StatefulWidget{
   const YoutubeFollowerScreen({super.key});
@@ -30,7 +30,7 @@ class _YoutubeFollowerScreen extends State<YoutubeFollowerScreen>{
   Widget build(BuildContext context){
     wvCntrl = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
-    ..setBackgroundColor(Colors.red)
+    ..setBackgroundColor(Colors.black)
     ..loadRequest(Uri.parse(mainUrl));
     return Scaffold(
       body: Container(

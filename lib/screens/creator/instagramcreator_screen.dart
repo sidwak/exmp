@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-final GlobalKey<_InstagramCreatorScreen> igGlobalKey = GlobalKey<_InstagramCreatorScreen>();
+GlobalKey<_InstagramCreatorScreen> igGlobalKey = GlobalKey<_InstagramCreatorScreen>();
 
 class InstagramCreatorScreen extends StatefulWidget{
   const InstagramCreatorScreen({super.key});
@@ -47,7 +47,7 @@ class _InstagramCreatorScreen extends State<InstagramCreatorScreen>{
 
     wvCntrl = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
-    ..setBackgroundColor(Colors.red)
+    ..setBackgroundColor(Colors.black)
     ..loadRequest(mainIgUri);
 
 

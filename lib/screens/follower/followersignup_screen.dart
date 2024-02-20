@@ -26,17 +26,24 @@ class FollowerSignupScreen extends StatelessWidget{
       await Auth().createUserWithEmailAndPassword(
         email: _controllerEmail.text,
         password: _controllerPassword.text
-      );
-      FirebaseAuth.instance.authStateChanges().listen((User? user) {
-        if (user != null){
-          debugPrint("usersignedup");
-          ScaffoldMessenger.of(mainCtx).showSnackBar(
-            SnackyBar(toSet: "User Singed Up")
-          );
-          DataMain().addFollowerAccount();
-          Navigator.pushNamed(mainCtx, FollowerHomeScreen.id);
-        }
+      ).then((value){
+        ScaffoldMessenger.of(mainCtx).showSnackBar(
+          SnackyBar(toSet: "User Singed Up")
+        );
+        DataMain().setNewUser(FirebaseAuth.instance.currentUser!);
+        DataMain().addFollowerAccount();
+        Navigator.pushReplacementNamed(mainCtx, FollowerHomeScreen.id);
       });
+      // FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      //   if (user != null){
+      //     debugPrint("usersignedup");
+      //     ScaffoldMessenger.of(mainCtx).showSnackBar(
+      //       SnackyBar(toSet: "User Singed Up")
+      //     );
+      //     DataMain().addFollowerAccount();
+      //     Navigator.pushReplacementNamed(mainCtx, FollowerHomeScreen.id);
+      //   }
+      // });
     }
     on FirebaseAuthException catch(e) {
       if (e.message != null){errorMessage = e.message!;}   

@@ -1,3 +1,4 @@
+import 'package:exm_p/datamain.dart';
 import 'package:exm_p/screens/creator/creatorhome_screen.dart';
 import 'package:exm_p/screens/creator/creatorsignup_screen.dart';
 import 'package:exm_p/widgets/snacky.dart';
@@ -29,23 +30,31 @@ class CreatorLoginScreen extends StatelessWidget {
     try {
       await Auth().signInWithEmailAndPassword(
         email: _controllerEmail.text,
-        password: _controllerPassword.text);
-      FirebaseAuth.instance.authStateChanges().listen((User? user) {
-        if (user != null){
+        password: _controllerPassword.text).then((value){
           ScaffoldMessenger.of(mainCtx).showSnackBar(
             SnackyBar(toSet: "User Singed In")
           );
-          Navigator.pushNamed(mainCtx, CreatorHomeScreen.id);
-        }
-      });
+          DataMain().setNewUser(FirebaseAuth.instance.currentUser!);
+          Navigator.pushReplacementNamed(mainCtx, CreatorHomeScreen.id);        
+        });
+      // FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      //   if (user != null){
+      //     ScaffoldMessenger.of(mainCtx).showSnackBar(
+      //       SnackyBar(toSet: "User Singed In")
+      //     );
+      //     DataMain().setNewUser(user);
+      //     Navigator.pushReplacementNamed(mainCtx, CreatorHomeScreen.id);
+      //   }
+      // });
     }
     on FirebaseAuthException catch(e) {
-      debugPrint(e.message);
+      debugPrint("ddb $e.message");
       if (e.message != null){errorMessage = e.message!;}   
       ScaffoldMessenger.of(mainCtx).showSnackBar(
         SnackyBar(toSet: errorMessage)
       );
     }
+
   }
 
   /* Future<void> createUserWithEmailAndPassword() async {
@@ -63,8 +72,8 @@ class CreatorLoginScreen extends StatelessWidget {
   } */
 
   void loginButtonPressed(){
-    //_controllerEmail.text = "sidwak6@gmail.com";
-    //_controllerPassword.text = "Siddheshwar@1";
+    // _controllerEmail.text = "sidwak6@gmail.com";
+    // _controllerPassword.text = "Siddheshwar@1";
     signInWithEmailAndPassword();
     //Navigator.pushNamed(mainCtx, CreatorHomeScreen.id);
   }

@@ -192,8 +192,8 @@ class _CreatorAccountScreen extends State<CreatorAccountScreen>{
                           _igLinkController.text, _twLinkController.text, _rdLinkController.text);
                           updateLinksAndReload();
                         },
-                        style: const ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll<Color>(Colors.purpleAccent)
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll<Color>(Theme.of(context).colorScheme.primary)
                         ),
                         child: Text("Update", 
                           style: GoogleFonts.nunito(
@@ -203,7 +203,7 @@ class _CreatorAccountScreen extends State<CreatorAccountScreen>{
                           ),
                         ),
                       )
-                    )
+                    ),
                   ]
                 )
               )

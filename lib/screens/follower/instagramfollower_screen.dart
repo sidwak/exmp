@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-final GlobalKey<_InstagramFollowerScreen> igFoGlobalKey = GlobalKey<_InstagramFollowerScreen>();
+GlobalKey<_InstagramFollowerScreen> igFoGlobalKey = GlobalKey<_InstagramFollowerScreen>();
 
 class InstagramFollowerScreen extends StatefulWidget{
   const InstagramFollowerScreen({super.key});
@@ -28,7 +28,7 @@ class _InstagramFollowerScreen extends State<InstagramFollowerScreen>{
   Widget build(BuildContext context){
     wvCntrl = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
-    ..setBackgroundColor(Colors.red)
+    ..setBackgroundColor(Colors.black)
     ..loadRequest(Uri.parse(mainUrl));
     return Scaffold(
       body: Container(

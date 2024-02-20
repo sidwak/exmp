@@ -25,17 +25,23 @@ class CreatorSignupScreen extends StatelessWidget{
       await Auth().createUserWithEmailAndPassword(
         email: _controllerEmail.text,
         password: _controllerPassword.text
-      );
-      FirebaseAuth.instance.authStateChanges().listen((User? user) {
-        if (user != null){
-          debugPrint("usersignedup");
+      ).then((value){
           ScaffoldMessenger.of(mainCtx).showSnackBar(
             SnackyBar(toSet: "User Singed Up")
           );
-          //DataMain().addCreatorAccount(_controllerEmail.text);
-          Navigator.pushNamed(mainCtx, CreatorHomeScreen.id);
-        }
-      });
+          DataMain().setNewUser(FirebaseAuth.instance.currentUser!);
+          Navigator.pushReplacementNamed(mainCtx, CreatorHomeScreen.id);        
+        });
+      // FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      //   if (user != null){
+      //     debugPrint("usersignedup");
+      //     ScaffoldMessenger.of(mainCtx).showSnackBar(
+      //       SnackyBar(toSet: "User Singed Up")
+      //     );
+      //     //DataMain().addCreatorAccount(_controllerEmail.text);
+      //     Navigator.pushReplacementNamed(mainCtx, CreatorHomeScreen.id);
+      //   }
+      // });
     }
     on FirebaseAuthException catch(e) {
       if (e.message != null){errorMessage = e.message!;}   

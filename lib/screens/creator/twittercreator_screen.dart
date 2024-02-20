@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-final GlobalKey<_TwitterCreatorScreen> twGlobalKey = GlobalKey<_TwitterCreatorScreen>();
+GlobalKey<_TwitterCreatorScreen> twGlobalKey = GlobalKey<_TwitterCreatorScreen>();
 
 class TwitterCreatorScreen extends StatefulWidget{
   const TwitterCreatorScreen ({super.key});
@@ -46,7 +46,7 @@ class _TwitterCreatorScreen extends State<TwitterCreatorScreen>{
 
     wvCntrl = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
-    ..setBackgroundColor(Colors.red)
+    ..setBackgroundColor(Colors.black)
     ..loadRequest(mainTwUri);
     
     return Scaffold(
